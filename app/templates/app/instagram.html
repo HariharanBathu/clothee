@@ -1,0 +1,33 @@
+{% extends 'app/instabase.html' %}
+{% load static %}
+{% block main-content %}
+
+<style>
+    .main{
+        margin-top:-50px; 
+    }
+    /* Your existing styles */
+
+    /* Media query for screens less than 980px */
+    @media (max-width: 980px) {
+        div[style*="height: 100vh;"] {
+            margin-top: 20px !important;
+        }
+    }
+</style>
+
+<div class="main" style=" display: flex; flex-direction:column; align-items: center; justify-content: center; height: 100vh;">
+    <div class="mt-5 mx-5">
+        <h2 style="color:red">IMPORTANT INFO.</h2>
+        <h5>1. DM to become influencer </h5>
+        <h5>2. Get Verified</h5>
+        <h5>3. Get Influencercode for login</h5>
+    </div style="margin-top:-30px;">
+    <img src="{% static 'app/images/banner/insta QR.jpg' %}" class="d-block w-40" style="height:400px;" alt="..."><br>
+    <div style="margin-top:-30px;">
+    <a href="https://www.instagram.com/_awesome.harry_/?igsh=OGQ5ZDc2ODk2ZA%3D%3D"><button type="button" class="btn btn-primary">Instagram Link</button></a>
+    <a href="/influencerlogin/"><button type="button" class="btn btn-primary">Login as Influencer</button></a>
+    </div>
+</div>
+
+{% endblock main-content %}

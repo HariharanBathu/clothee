@@ -1,0 +1,121 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Product Detail{% endblock title %}
+{% block main-content %}
+<link rel="stylesheet" href="https://unpkg.com/@splidejs/splide@3.0.9/dist/css/splide.min.css">
+<script src="https://unpkg.com/@splidejs/splide@3.0.9/dist/js/splide.min.js"></script>
+<style>
+    .splide__slide img {
+        width: 80%;
+        height: 90%;
+      }
+</style>
+<div class="container my-5">
+ <div class="row">
+  <div class="col-md-6 text-center">
+    <section id="image-carousel" class="splide" aria-label="Beautiful Images">
+        <div class="splide__track">
+              <ul class="splide__list">
+                  <li class="splide__slide">
+                      <img src="{{product.product.product_image.url}}" alt="">
+                  </li>
+                  <li class="splide__slide">
+                      <img src="{{product.product.product_image2.url}}" alt="">
+                  </li>
+                  <li class="splide__slide">
+                      <img src="{{product.product.product_image3.url}}" alt="">
+                  </li>
+              </ul>
+        </div>
+      </section>
+   {% comment %} <img src="{{product.product.product_image.url}}" alt="" width="400" height="400" class="img-fluid img-thumbnail"> {% endcomment %}
+  </div>
+  <div class="col-md-5">
+   <h2>Product Title: {{product.product.title}}</h2>
+   <hr>
+   <p>{{product.product.description}} </p> <br>
+   <h4>Rs. {{product.product.discounted_price}} <small class="fw-light text-decoration-line-through">{{product.product.selling_price}} </small></h4> <br>
+
+   {% comment %} <div class="input-group mb-3">
+    <input type="text" value="{{ request.build_absolute_uri }}" id="productLink" class="form-control product-link-input" readonly>
+    <div class="input-group-append">
+        <button class="btn btn-success" type="button" onclick="copyProductLink()">Copy Link</button>
+    </div>
+</div> {% endcomment %}
+
+
+   <form id="combined-form" action="/add-to-cart/" method="post" class="mb-2">
+    {% csrf_token %}
+    <input type="hidden" name="prod_id" value="{{ product.product.id }}" id="prod_id_combined">
+
+    <label for="color_combined">Select Color:</label>
+    <select style="width:150px;" name="color" id="color_combined" class="form-control">
+        {% for color in product.product.colors.all %}
+        <option value="{{ color.name }}">{{ color.name }}</option>
+    {% endfor %}
+        <!-- Add more color options as needed -->
+    </select>
+
+    <label for="size_combined">Select Size:</label>
+    <select style="width:150px;" name="size" id="size_combined" class="form-control">
+        {% for size in product.product.size.all %}
+        <option value="{{ size.name }}">{{ size.name }}</option>
+    {% endfor %}
+        <!-- Add more size options as needed -->
+    </select>
+
+    <button type="button" class="btn btn-primary shadow px-4 py-2 my-2 mx-1" onclick="submitForms('buy')">Add to Cart</button>
+
+    <button type="button" class="btn btn-danger shadow px-4 py-2 my-2" onclick="submitForms('add-to-cart')">Buy Now</button>
+</form>
+
+
+   {% comment %} <a href="#" class="btn btn-danger shadow px-5 py-2 ms-4">Buy Now</a> {% endcomment %}
+   <h5 class="mt-5">Available Offers</h5>
+   <ul>
+    <li>Bank Offer 5% Unlimited Cashback on Flipkart Axis Bank Credit</li>
+    <li>Special Price Get extra ₹3000 off (price inclusive of discount)</li>
+    <li>No cost EMI ₹1,667/month. Standard EMI also available</li>
+    <li>Partner Offer ₹2000 Flipkart Gift Card on Every 1000th Transaction with a new Visa Debit/Credit Card</li>
+   </ul>
+  </div>
+ </div>
+</div>
+
+<script>
+    {% comment %} function copyProductLink() {
+        var linkInput = document.getElementById("productLink");
+        linkInput.select();
+        document.execCommand("copy");
+        alert("Product link copied to clipboard!");
+    } {% endcomment %}
+
+    function submitForms(action) {
+        // Set the action for the combined form
+        document.getElementById("combined-form").action = "/" + action + "/";
+
+        // Submit the combined form
+        document.getElementById("combined-form").submit();
+    }
+</script>
+
+{% comment %} <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        if (typeof Splide !== 'undefined') {
+            new Splide('#image-carousel', {
+                type       : 'fade', // or 'slide'
+                heightRatio: 0.5,
+                pagination : false,
+                arrows     : false,
+            }).mount();
+        } else {
+            console.error('Splide is not defined. Make sure the Splide library is included.');
+        }
+    });
+</script> {% endcomment %}
+
+
+<script>
+    new Splide( '#image-carousel', {heightRatio: 0.8, }).mount();
+  </script>
+{% endblock main-content %}

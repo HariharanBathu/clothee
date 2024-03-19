@@ -1,0 +1,125 @@
+{% extends 'app/base_home.html' %}
+{% load static %}
+{% block title %}Rules{% endblock title %}
+
+
+
+
+
+{% block main-content %}
+<style> 
+   .box {
+      width: 800px;
+      height: 130px;
+      padding:10px;
+      border-radius:10px;
+      background-color: orange;
+      position: relative;
+      animation-name: box1;
+      animation-duration: 4s;
+      animation-fill-mode: forwards;
+    }
+
+    .box2 {
+        width: 800px;
+        height: 160px;
+        padding:10px;
+        border-radius:10px;
+        background-color: orange;
+        position: absolute;
+        animation-name: box2;
+        animation-duration: 4s;
+        animation-fill-mode: forwards;
+      }
+      .box3 {
+        width: 800px;
+        height: 150px;
+        padding:10px;
+        border-radius:10px;
+        background-color: orange;
+        position: absolute;
+        animation-name: box3;
+        animation-duration: 4s;
+        animation-fill-mode: forwards;
+      }
+
+      .box4 {
+        width: 800px;
+        height: 150px;
+        padding:10px;
+        border-radius:10px;
+        background-color: orange;
+        position: absolute;
+        animation-name: box4;
+        animation-duration: 4s;
+        animation-fill-mode: forwards;
+      }
+
+    @keyframes box1 {
+      0%   {background-color:red; left:-200px; top:0px;}
+      100% { left: 5px; top: 0px;}
+    }
+
+    @keyframes box2 {
+        0%   {background-color:red; left:-200px; top:270px;}
+        100% {left: 5px; top: 290px;}
+      }
+
+    @keyframes box3 {
+        0%   {background-color:red; left:-200px; top:435px;}
+        100% { left: 5px; top: 470px;}
+      }
+
+    @keyframes box4 {
+        0%   {background-color:red; right:-500px; top:600px;}
+        100% { right: 5px; top: 600px;}
+      }
+
+    @media only screen and (max-width: 840px) {
+        .box2 {
+            margin-top:150px;
+        }
+        .box3 {
+            margin-top:250px;
+        }
+        .box4 {
+            margin-top:350px;
+        }
+
+        .box,.box2,.box3,.box4 {
+            width:400px;
+            height: 240px;
+        }
+
+
+      }
+
+    
+    {% comment %} @media (max-width: 840px) {
+        .box2,
+        
+         {
+            max-width: 100%;
+            width: 100%;
+            margin-top:30px;
+        }
+    } {% endcomment %}
+
+
+    </style>
+
+    <h2 class="my-3 text-center">🌟 Rules to become <span style="color:red;">INFLUENCERS</span>  at <span style="color:red;">CLOTHEE</span> 🌟</h2>
+
+<div class="box">
+    <h4 style="color:purple;"><b>INFORMATION 1 : What IT IS?</b></h4>
+    After signup,get influencercode and login. You can Choose limited  cloths in Your Choices .If users enter your code and buy cloths from your Choices you get exact deal amount .If users choose other cloths from your choices you will get less than 10% for that cloths.</div>
+
+<div class="box2">
+    <h4 style="color:purple;"><b>INFORMATION 2: HOW TO USE</b></h4>
+     You able to copy the link of your chosen cloths,You need to keep story or status in any social media with images or videos of the cloth with link of that dress(Take a screenshot of your clothimage or download it and upload it with the link in your socialmedia)</div>
+
+<div class="box3">
+    <h4 style="color:purple;"><b>INFORMATION 3:PAYMENT DETAILS</b></h4>
+     You will receive your Deal payment on Upcoming Wednesday or satuarday from the order date.After each order by user who uses your code, You will receive a mail of the ordered product .</div>
+
+{% endblock main-content %}

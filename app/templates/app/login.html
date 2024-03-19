@@ -1,0 +1,43 @@
+{% extends 'app/base_home.html' %}
+{% load static %}
+{% block title %}Login{% endblock title %}
+{% block main-content %}
+<style>
+  body{
+    {% comment %} background:#d63384; {% endcomment %}
+  }
+</style>
+
+
+{% for message in messages %}
+    <div class="message text-center alert alert-info {{ message.tags }}">
+        {{ message }}
+    </div>
+{% endfor %}
+
+<div  class="container">
+ <div class="row my-3">
+  <div class="col-sm-6 offset-sm-3">
+   <h3>Customer Login</h3>
+   <hr>
+   <form style=" color:black; border-radius:15px;"  action="" method="post" novalidate class="shadow p-5">
+    {% csrf_token %}
+    {{form.as_p}}
+    <small><a href="{% url 'password_reset' %}">Forgot Password ?</a></small> <br>
+
+    <input type="submit" class="btn btn-primary mt-4" value="Login">
+    <br>
+    <div class="text-center text-primary fw-bold"><small>New to MeriShop ? <a href="{% url 'registration' %}" class="text-danger">Create an Account</a></small></div>
+
+    {% if form.non_field_errors %}
+      {% for error in form.non_field_errors %}
+       <p class="alert alert-danger my-3">{{error}}</p>
+      {% endfor %}
+    {% endif %}
+   </form>
+  </div>
+ </div>
+</div>
+
+{{ redirect_to_login_immediately }}
+{% endblock main-content %}

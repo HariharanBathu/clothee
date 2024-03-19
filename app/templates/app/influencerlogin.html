@@ -1,0 +1,33 @@
+{% extends 'app/base_home.html' %}
+{% load static %}
+{% block title %}Login{% endblock title %}
+{% block main-content %}
+
+<style>
+  body{
+    {% comment %} background:#d63384; {% endcomment %}
+  }
+</style>
+
+<div class="container">
+ <div class="row my-3">
+  <div class="col-sm-6 offset-sm-3">
+   <h3>Influencer Login</h3>
+   <a href="{% url 'getcode' %}"><button class="btn btn-info">Click here to get Influencer Code</button></a>
+
+   <hr>
+    <form style="color:black; border-radius:15px;" class="shadow p-5" method="post" action="{% url 'influencerlogin' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        {% comment %} <button type="submit">Login</button> {% endcomment %}
+        <input type="submit" class="btn btn-primary mt-4" value="Login">
+        <br>
+    <div class="text-center text-primary fw-bold"><small>New to MeriShop ? <a href="{% url 'influencersignup' %}" class="text-danger">Create an Account</a></small></div>
+
+
+    </form>
+   
+  </div>
+ </div>
+</div>
+{% endblock main-content %}

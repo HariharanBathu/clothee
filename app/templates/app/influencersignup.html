@@ -1,0 +1,67 @@
+{% extends 'app/base_home.html' %}
+{% load static %}
+{% block title %}Customer Registration{% endblock title %}
+{% block main-content %}
+
+<style>
+  body{
+    {% comment %} background:#d63384; {% endcomment %}
+  }
+  .alert {
+    padding: 20px;
+    background-color: skyblue;
+    color: white;
+  }
+  
+  .closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .closebtn:hover {
+    color: black;
+  }
+</style>
+
+<div class="alert">
+  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+  <strong>Note!</strong> This Email can also be used for login as customer.
+</div>
+
+<div class="container">
+ <div class="row my-3">
+  <div class="col-sm-6 offset-sm-3">
+   <h3>Influencer Signup</h3>
+   <a href="{% url 'influencer_rules' %}"><button class="btn btn-info">Work and Rules for Influencer</button></a>
+   {% comment %} <button type="submit" class="btn btn-primary mt-4" value="Sign Up"> {% endcomment %}
+   <hr>
+
+   <form style=" color:black; border-radius:15px;" class="shadow p-5" method="post" action="{% url 'influencersignup' %}">
+    {% if messages %}
+    {% for message in messages %}
+    <div class="message text-center alert alert-info {{ message.tags }}">
+        {{ message }}
+    </div>
+{% endfor %}
+    {% endif %}
+    {% csrf_token %}
+    {{ form.as_p }}
+    {% comment %} <button type="submit">Sign Up</button> {% endcomment %}
+    <input type="submit" class="btn btn-primary mt-4" value="Sign Up">
+    <br>
+    <div class="text-center text-primary fw-bold"><small>Existing User ? <a href="{% url 'influencerlogin' %}" class="text-danger">Login Now</a> </small></div>
+
+
+  </form>
+   
+   
+  </div>
+ </div>
+</div>
+{% endblock main-content %}

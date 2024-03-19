@@ -1,0 +1,120 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Checkout{% endblock title %}
+{% block main-content %}
+<div class="container">
+ <div class="row mt-5">
+  <div class="col-sm-6">
+    <h4>Order Summary</h4>
+    <hr>
+    {% for item in cart_items %}
+      <div class="card mb-2">
+        <div class="card-body">
+          <h5>Product: {{item.product.title}} </h5>
+          <p>Quantity: {{item.quantity}}</p>
+          <p style="margin-bottom:-2px;">Color: {{item.color}}</p>
+          <p>Size: {{item.size}}</p>
+
+
+          <p class="fw-bold">Price: {{item.total_cost}} </p>
+        </div>
+      </div>
+      {% endfor %}
+      {% comment %} <p class="fw-bold">Total Cost + Rs. 70 = {{totalamount}}</p> {% endcomment %}
+      <p class="fw-bold">Total Cost = {{totalamount}}</p>
+    <small>Term and Condition: Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, ullam saepe! Iure optio repellat dolor velit, minus rem. Facilis cumque neque numquam laboriosam, accusantium adipisci nisi nihil in et quis?</small>
+  </div>
+  <div class="col-sm-4 offset-sm-1">
+    <h4>Select Shipping Address</h4>
+    <hr>
+    <form action="/paymentdone" id="paymentForm">
+      {% for ad in add %}
+      <div class="card">
+        <div class="card-body">
+          <h5>{{ad.name}}</h5>
+          <p>{{ad.locality}}, {{ad.city}}, {{ad.state}} - {{ad.zipcode}}</p>
+        </div>
+      </div>
+      <div class="form-check mt-2 mb-5">
+        <input class="form-check-input" type="radio" name="custid" id="custadd{{forloop.counter}}" value="{{ad.id}}" {% if forloop.first %}checked{% endif %} required>
+        <label class="form-check-label fw-bold" for="custadd{{forloop.counter}}">
+          Address: {{forloop.counter}}
+        </label>
+      </div>
+      {% endfor %}
+      {% if totalamount > 500 %}
+      <button style="margin-left:190px;" type="submit" class="btn btn-warning mt-3 px-5 fw-bold">Cash On Delivery</button>
+      {% endif %}
+
+      
+
+      {% comment %} <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+      data-key="{{ key }}"
+      data-description = "Payment Gateway"
+      data-amount="{{ totalamount }}"
+      data-locale="auto">
+    </script> {% endcomment %}
+
+       <div  class="text-end">
+        <button type="button" class="btn btn-warning mt-3 px-5 fw-bold" id="rzp-button1">UPI Pay Here</button>
+      </div> 
+    </form>
+    <script>
+      document.getElementById("rzp-button1").addEventListener("click", function () {
+        // Check if any radio button is selected
+        if (document.querySelector('input[name="custid"]:checked')) {
+          // Submit the form if a radio button is selected
+          document.getElementById("paymentForm").active();
+        } else {
+          // Handle the case when no radio button is selected
+          alert("Please select an address before proceeding with payment.");
+          // You can customize this alert or add other handling logic
+        }
+      });
+    </script>
+    
+    </div>
+  </div>
+</div>
+
+
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<script>
+  var options = {
+      "key": "rzp_test_5QUgiszO7P6wqK", // Enter the Key ID generated from the Dashboard
+      "amount": "{{payment.amount}}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      "currency": "INR",
+      "name": "MeriShop",
+      "description": "Purchase",
+      "image": "https://example.com/your_logo",
+      "order_id": "{{payment.id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+      "handler": function (response){
+          //alert(response.razorpay_payment_id);
+          //alert(response.razorpay_order_id);
+          //alert(response.razorpay_signature)
+          document.getElementById("paymentForm").submit();
+      },
+     
+      "theme": {
+          "color": "#3399cc"
+      }
+  };
+  var rzp1 = new Razorpay(options);
+  rzp1.on('payment.failed', function (response){
+          alert(response.error.code);
+          alert(response.error.description);
+          alert(response.error.source);
+          alert(response.error.step);
+          alert(response.error.reason);
+          alert(response.error.metadata.order_id);
+          alert(response.error.metadata.payment_id);
+  });
+  document.getElementById('rzp-button1').onclick = function(e){
+      rzp1.open();
+      e.preventDefault();
+  }
+  </script>
+
+{% endblock main-content %}

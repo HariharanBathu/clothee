@@ -1,0 +1,64 @@
+{% extends 'app/base2.html' %}
+{% load static %}
+{% block title %}Cart{% endblock title %}
+{% block main-content %}
+
+{% if user_has_influencer_code %}
+    {# User has an influencer code, show the content #}
+    {% comment %} <p>Welcome, influencer! You can see this page.</p> {% endcomment %}
+    <!-- Add your page content here for users with influencer codes -->
+
+
+<div class="container my-5">
+ <div class="row">
+  <h1 class="text-center mb-5">Influencer's Cart</h1>
+  <h4 class="fw-bold" style="color:red;">You can add only maximum 100 products in this cart</h4>
+  <div class="col-sm-8">
+  <div class="card">
+   <div class="card-body">
+    <h3>Cart</h3>
+    <hr>
+    {% for cart in influencercarts %}
+    <hr>
+    <div class="row">
+     <div class="col-sm-3 text-center align-self-center"><img src="{{cart.product.product_image.url}}" alt="" srcset="" class="img-fluid img-thumbnail shadow-sm" height="150" width="150"> </div>
+     <div class="col-sm-9">
+      <div>
+       <h5>{{cart.product.title}}</h5>   
+       <h6>Commission - {{cart.product.commission}}%</h6>      
+       <div class="d-flex justify-content-between">
+        <a href="#" class="btn btn-sm btn-secondary mr-3 remove-cart" pid="{{cart.product.id}}">Remove item </a>
+        <p class="mb-0"><span><strong>Rs. {{cart.product.discounted_price}}</strong></span></p>
+       </div>
+      </div>
+     </div>
+    </div>
+    {% endfor %}
+    <hr class="text-muted">
+    <div class="row my-5">
+     
+    </div>
+   </div>
+   </div>
+  </div>
+
+
+{% comment %} <div class="container">
+ <div class="row">
+  <div class="col-sm-8">
+   <div class="card">
+    <div class="card-body">
+      <h5 class="mb-4">We accept</h5>
+      <img src="{% static 'app/images/payment.png' %}" alt="" class="img-fluid">
+    </div>
+  </div>
+  </div>
+ </div> 
+</div> {% endcomment %}
+
+{% else %}
+    {# User doesn't have an influencer code, show a message or redirect #}
+    <h4 class="text-center my-5"><b>Sorry, you don't have access to this page.</b></h4>
+    <!-- You can also redirect the user to another page or take appropriate action -->
+{% endif %}
+{% endblock main-content %}

@@ -1,0 +1,131 @@
+{% extends 'app/base2.html' %}
+{% load static %}
+{% block title %}About Us{% endblock title %}
+
+
+
+
+
+{% block main-content %}
+<style> 
+   .box {
+      width: 800px;
+      height: 130px;
+      padding:10px;
+      border-radius:10px;
+      background-color: orange;
+      position: relative;
+      animation-name: box1;
+      animation-duration: 4s;
+      animation-fill-mode: forwards;
+    }
+
+    .box2 {
+        width: 800px;
+        height: 150px;
+        padding:10px;
+        border-radius:10px;
+        background-color: orange;
+        position: absolute;
+        animation-name: box2;
+        animation-duration: 4s;
+        animation-fill-mode: forwards;
+      }
+      .box3 {
+        width: 800px;
+        height: 150px;
+        padding:10px;
+        border-radius:10px;
+        background-color: orange;
+        position: absolute;
+        animation-name: box3;
+        animation-duration: 4s;
+        animation-fill-mode: forwards;
+      }
+
+      .box4 {
+        width: 800px;
+        height: 150px;
+        padding:10px;
+        border-radius:10px;
+        background-color: orange;
+        position: absolute;
+        animation-name: box4;
+        animation-duration: 4s;
+        animation-fill-mode: forwards;
+      }
+
+    @keyframes box1 {
+      0%   {background-color:red; left:-200px; top:0px;}
+      100% { left: 5px; top: 0px;}
+    }
+
+    @keyframes box2 {
+        0%   {background-color:red; right:-500px; top:270px;}
+        100% {right: 5px; top: 270px;}
+      }
+
+    @keyframes box3 {
+        0%   {background-color:red; left:-200px; top:435px;}
+        100% { left: 5px; top: 435px;}
+      }
+
+    @keyframes box4 {
+        0%   {background-color:red; right:-500px; top:600px;}
+        100% { right: 5px; top: 600px;}
+      }
+
+    @media only screen and (max-width: 840px) {
+        .box2 {
+            margin-top:150px;
+        }
+        .box3 {
+            margin-top:250px;
+        }
+        .box4 {
+            margin-top:350px;
+        }
+
+        .box,.box2,.box3,.box4 {
+            width:400px;
+            height: 240px;
+        }
+
+
+      }
+
+    
+    {% comment %} @media (max-width: 840px) {
+        .box2,
+        
+         {
+            max-width: 100%;
+            width: 100%;
+            margin-top:30px;
+        }
+    } {% endcomment %}
+
+
+    </style>
+
+    <h2 class="my-3 text-center">🌟 Welcome to <span style="color:red;">CLOTHEE</span>, where fashion meets affordability! 🌟</h2>
+
+<div class="box">
+    At <b>CLOTHEE</b>, we're redefining the way you shop for clothes. As an exclusive clothing ecommerce website, we take pride in offering high-quality garments directly from the factories to your wardrobe. Our unique approach eliminates middlemen such as resellers and distributors, ensuring that you receive top-notch fashion at unbeatable prices.
+</div>
+
+<div class="box2">
+    <h4 style="color:purple;"><b>Direct from Factories to You</b></h4>
+    We believe in transparency and efficiency. By sourcing our clothes directly from the factories, we cut out unnecessary costs and pass those savings on to you. This means you can indulge in the latest trends without breaking the bank. Our commitment to quality craftsmanship and attention to detail is evident in every piece we offer.
+</div>
+
+<div class="box3">
+    <h4 style="color:purple;"><b>Influencers as Our Partners</b></h4>
+    In our mission to bring you the best deals, we've partnered with influencers who share our passion for style and value. These influencers curate and showcase our handpicked collections, giving you a personalized shopping experience. By collaborating with influencers, we create a dynamic platform where fashion enthusiasts like you can discover the latest looks and trends effortlessly.
+</div>
+
+<div class="box4">
+    <h4 style="color:purple;"><b>No Resellers, No Distributors</b></h4>
+    Unlike traditional retail models, we eliminate the need for resellers and distributors. This not only streamlines the supply chain but also ensures that you're getting genuine products directly from the source. Each item in our collection undergoes rigorous quality checks, so you can shop with confidence, knowing that you're investing in clothing that lasts.
+</div>
+{% endblock main-content %}

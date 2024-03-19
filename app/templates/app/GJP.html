@@ -1,0 +1,49 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}GJP{% endblock title %}
+{% block main-content %}
+<div class="container my-5">
+    <div class="row">
+        {% comment %} <h3>Welcome <span class="text-capitalize">{{request.user}}</span></h3> {% endcomment %}
+        <div class="col-sm-2 border-end">
+            <ul class="list-styled">
+                <li class="d-grid"><a href="{% url 'womenswear' %}" class="btn {{active}}">Girls Tops, T-Shirts & Shirts</a></li>
+                <li class="d-grid"><a style="background-color:skyblue;" href="{% url 'womenswear1' %}" class="btn ">Girl Jeans & Pants</a></li>
+                <li class="d-grid"><a href="{% url 'womenswear2' %}" class="btn ">Girls Skirts & Shorts</a></li>
+                <li class="d-grid"><a href="{% url 'womenswear3' %}" class="btn ">Girls Sportswear & innerwear</a></li>
+                <li class="d-grid"><a href="{% url 'womenswear4' %}" class="btn ">Girls Sleepwear</a></li>
+                <li class="d-grid"><a href="{% url 'womenswear5' %}" class="btn ">Girls Tights & Leggings</a></li>
+                <li class="d-grid"><a href="{% url 'womenswear6' %}" class="btn ">womens Tamil Traditional wears</a></li>
+
+            </ul>
+        </div>
+        <div class="col-sm-9 offset-sm-1">
+            {% comment %} <h2 class="hover-underline-animation" style="font-family: 'Carattere';"> T-Shirts </h2> {% endcomment %}
+        <div class="container-fluid">
+            <div class="row product-row">
+              {% for t in GJP %}
+                <div class="col-md-2">
+                  <div class="pro border p-1 mb-4" style="height: 90%;">
+                    <a href="{% url 'product-detail' t.id %}" class="btn d-block h-100">
+                      <div class="item">
+                        <img src="{{ t.product_image.url }}" alt="" class="img-fluid">
+                        <div class="mt-3">
+                          <span class="fw-bold d-block">{{ t.title }}</span>
+                          <span style="font-size: 14px;" class="d-block">Rs. {{ t.discounted_price }}</span>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+          
+                {% if forloop.counter|divisibleby:6 and not forloop.last %}
+                  </div><div class="row product-row">
+                {% endif %}
+          
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+{% endblock main-content %}

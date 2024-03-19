@@ -1,0 +1,382 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- Add any additional meta tags, stylesheets, or scripts here -->
+    <style>
+        .form-group {
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+    
+        .btn {
+            margin-top: 10px;
+        }
+    
+        /* Media query for screens with a width of 500px or less */
+        @media (max-width: 500px) {
+            .form-group {
+                width: 100%; /* Make form groups full width for small screens */
+                box-sizing: border-box; /* Include padding and border in width calculation */
+            }
+    
+            .form-group label {
+                width: 100%; /* Make labels full width for small screens */
+                box-sizing: border-box;
+            }
+    
+            .btn {
+                width: 100%; /* Make the button full width for small screens */
+                box-sizing: border-box;
+            }
+        }
+    </style>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+    
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+    
+        th {
+            background-color: #f2f2f2;
+        }
+    
+        img {
+            max-width: 100px;
+            max-height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="btn-container">
+        <a href="/">
+          <button class="btn btn-primary my-3 mx-3">Back to Home</button>
+        </a>
+      </div>
+
+    <div class="container mt-5">
+        <form class="col-12 mx-auto card p-3 shadow-lg" action="" method="POST" enctype="multipart/form-data" required>
+            <h4>Add Product</h4>
+            <hr>
+            {% csrf_token %}
+            {{ form.media }}
+            <div class="form-group mt-2">
+                <label for="{{ form.title.id }}">Title</label>
+                {{ form.title }}
+            </div>
+            <div class="form-group mt-2">
+                <label for="{{ form.selling_price.id }}">Price</label>
+                {{ form.selling_price }}
+            </div>
+            <div class="form-group mt-2" required>
+                <label for="{{ form.factory.id }}">Shop Name</label>
+                {{ form.factory }}
+            </div>
+            <div class="form-group mt-2">
+                <label for="{{ form.size.id }}">Sizes Available</label>
+                {{ form.size }}
+            </div>
+            <div class="form-group mt-2">
+                <label for="{{ form.colors.id }}">Colors Available</label>
+                {{ form.colors }}
+            </div>
+            <div class="form-group mt-2">
+                <label for="{{ form.product_image.id }}">Product Image</label>
+                {{ form.product_image }}
+            </div>
+            <div class="form-group mt-2">
+                <label for="{{ form.product_image2.id }}">Product Image 2</label>
+                {{ form.product_image2 }}
+            </div>
+            <div class="form-group mt-2">
+                <label for="{{ form.product_image3.id }}">Product Image 3</label>
+                {{ form.product_image3 }}
+            </div>
+    
+            <button type="submit" class="btn btn-success mt-2">Save</button>
+        </form>
+    </div>
+
+<div class="mt-5 mb-5">
+    <table>
+        <thead>
+            <tr>
+                <th scope="col">Sr. No</th>
+                <th scope="col">Title</th>
+                <th scope="col">Price</th>
+                <th scope="col">Shop Name</th>
+                <th scope="col">Image</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for q in queryset reversed %}
+            <tr>
+                <th scope="row">{{forloop.revcounter}}</th>
+                <td>{{q.title}}</td>
+                <td>{{q.selling_price}}</td>
+                <td>{{q.factory}}</td>
+                <td><img style="height:200px; width:200px;" src="{{q.product_image.url}}" alt=""></td>
+                <td> <a href="/delProduct/{{q.id}}" class="btn btn-danger">Delete</a>  </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% comment %} {% extends 'app/base.html' %} {% endcomment %}
+
+<!--{% block title %}
+Add Product
+{% endblock title %}
+
+{% comment %} {% block content %} {% endcomment %}
+{% block main-content %}
+
+{% comment %} <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="mb-4">Add Student</h1>
+                <form action="" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+<div> {% endcomment %}
+
+{% comment %} <div class="container mt-5">
+    <form class="col-6 mx-auto card p-3 shadow-lg" action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="exampleInputEmail1">Product Title</label>
+          <input name="title" type="text" class="form-control" >
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Price</label>
+          <input type="number" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Sizes</label>
+            <input name="size" type="text" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Colors</label>
+            <input type="text" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Image 1</label>
+            <input type="file" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Image 2</label>
+            <input type="file" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Image 3</label>
+            <input type="file" class="form-control">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+</div> {% endcomment %}
+
+
+<style>
+    .form-group {
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .btn {
+        margin-top: 10px;
+    }
+
+    /* Media query for screens with a width of 500px or less */
+    @media (max-width: 500px) {
+        .form-group {
+            width: 100%; /* Make form groups full width for small screens */
+            box-sizing: border-box; /* Include padding and border in width calculation */
+        }
+
+        .form-group label {
+            width: 100%; /* Make labels full width for small screens */
+            box-sizing: border-box;
+        }
+
+        .btn {
+            width: 100%; /* Make the button full width for small screens */
+            box-sizing: border-box;
+        }
+    }
+</style>
+
+<div class="container mt-5">
+    <form class="col-12 mx-auto card p-3 shadow-lg" action="" method="POST" enctype="multipart/form-data">
+        <h4>Add Product</h4>
+        <hr>
+        {% csrf_token %}
+        {{ form.media }}
+        <div class="form-group mt-2">
+            <label for="{{ form.title.id }}">Title</label>
+            {{ form.title }}
+        </div>
+        <div class="form-group mt-2">
+            <label for="{{ form.selling_price.id }}">Selling Price</label>
+            {{ form.selling_price }}
+        </div>
+        <div class="form-group mt-2">
+            <label for="{{ form.size.id }}">Size</label>
+            {{ form.size }}
+        </div>
+        <div class="form-group mt-2">
+            <label for="{{ form.colors.id }}">Colors</label>
+            {{ form.colors }}
+        </div>
+        <div class="form-group mt-2">
+            <label for="{{ form.product_image.id }}">Product Image</label>
+            {{ form.product_image }}
+        </div>
+        <div class="form-group mt-2">
+            <label for="{{ form.product_image2.id }}">Product Image 2</label>
+            {{ form.product_image2 }}
+        </div>
+        <div class="form-group mt-2">
+            <label for="{{ form.product_image3.id }}">Product Image 3</label>
+            {{ form.product_image3 }}
+        </div>
+
+        <button type="submit" class="btn btn-success mt-2">Save</button>
+    </form>
+</div>
+
+
+
+
+
+
+
+
+
+
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+    
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+    
+        th {
+            background-color: #f2f2f2;
+        }
+    
+        img {
+            max-width: 100px;
+            max-height: 100px;
+        }
+    </style>
+    
+    <table>
+        <thead>
+            <tr>
+                <th scope="col">Sr. No</th>
+                <th scope="col">Title</th>
+                <th scope="col">Price</th>
+                <th scope="col">Image</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for q in queryset %}
+            <tr>
+                <th scope="row">{{forloop.counter}}</th>
+                <td>{{q.title}}</td>
+                <td>{{q.selling_price}}</td>
+                <td><img style="height:200px;" src="{{q.product_image.url}}" alt=""></td>
+                <td> <a href="/delProduct/{{q.id}}" class="btn btn-danger">Delete</a>  </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+      
+</div>
+{% comment %} {{queryset}} {% endcomment %}
+{% endblock main-content %}-->
+
+{% comment %} {% endblock content %} {% endcomment %}

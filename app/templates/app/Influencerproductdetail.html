@@ -1,0 +1,61 @@
+{% extends 'app/base2.html' %}
+{% load static %}
+{% block title %}Product Detail{% endblock title %}
+{% block main-content %}
+{% if user_has_influencer_code %}
+
+<div class="container my-5">
+ <div class="row">
+  <div class="col-sm-6 text-center align-self-center">
+   <img src="{{product.product_image.url}}" alt="" width=400 height=400 class="img-fluid img-thumbnail">
+  </div>
+  <div class="col-sm-5 offset-sm-1">
+   <h2>Product Title: {{product.title}}</h2>
+   <hr>
+   <p>{{product.description}} </p>
+   <p class="fw-bold">Commission - {{product.commission}}% </p> <br>
+
+   <h4>Rs. {{product.discounted_price}} <small class="fw-light text-decoration-line-through">{{product.selling_price}} </small></h4> <br>
+
+   <div class="input-group mb-3">
+    <input type="text" value="{{ request.build_absolute_uri }}" id="productLink" class="form-control product-link-input" readonly>
+    <div class="input-group-append">
+        <button class="btn btn-success" type="button" onclick="copyProductLink()">Copy Link</button>
+    </div>
+</div>
+
+
+   <form action="/influencer-add-to-cart" class="d-inline">
+    <input type="hidden" name="prod_id" value={{product.id}} id="prod_id">
+    <button type="submit" class="btn btn-primary shadow px-5 py-2">Add to Cart</button>
+   </form>
+
+
+   {% comment %} <a href="{% url 'showcart' %}" class="btn btn-danger shadow px-5 py-2 ms-4">Buy Now</a> {% endcomment %}
+   <h5 class="mt-5">Available Offers</h5>
+   <ul>
+    <li>Bank Offer 5% Unlimited Cashback on Flipkart Axis Bank Credit</li>
+    <li>Special Price Get extra ₹3000 off (price inclusive of discount)</li>
+    <li>No cost EMI ₹1,667/month. Standard EMI also available</li>
+    <li>Partner Offer ₹2000 Flipkart Gift Card on Every 1000th Transaction with a new Visa Debit/Credit Card</li>
+   </ul>
+  </div>
+ </div>
+</div>
+
+{% else %}
+    {# User doesn't have an influencer code, show a message or redirect #}
+    <h4 class="text-center my-5"><b>Sorry, you don't have access to this page.</b></h4>
+    <!-- You can also redirect the user to another page or take appropriate action -->
+{% endif %}
+
+<script>
+    function copyProductLink() {
+        var linkInput = document.getElementById("productLink");
+        linkInput.select();
+        document.execCommand("copy");
+        alert("Product link copied to clipboard!");
+    }
+</script>
+
+{% endblock main-content %}
